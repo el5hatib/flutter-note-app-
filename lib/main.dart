@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nota/cubits/add_note_cubit/Addnotes_cubit.dart';
 import 'package:nota/models/note_model.dart';
 import 'package:nota/widgests/Constant.dart';
 import 'views/notes_view.dart';
@@ -15,13 +17,19 @@ class NotaAPP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        fontFamily: 'BreeSerif-Regular',
+    return MultiBlocProvider(
+      providers: [
+        // Define your cubits here
+        BlocProvider(create: (context) => AddNotesCubit()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          fontFamily: 'BreeSerif-Regular',
+        ),
+        home:  NotesView(),
       ),
-      home:  NotesView(),
     );
   }
 }
